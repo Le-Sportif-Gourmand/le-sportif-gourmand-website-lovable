@@ -64,8 +64,8 @@ const Histoire = () => {
                 <h3 className="text-xl font-bold mb-2">Adam Bouhrara</h3>
                 <p className="text-primary font-medium mb-3">Co-fondateur</p>
                 <p className="text-muted-foreground text-sm">
-                  Passionné de nutrition sportive et d'innovation, Adam a imaginé 
-                  une nouvelle façon de concilier performance et gourmandise.
+                  Passionné d'escalade, de trek et de course à pied, Adam voulait
+                  optimiser sa nutrition sans renoncer au plaisir de la gourmandise.
                 </p>
               </div>
               <div className="text-center">
