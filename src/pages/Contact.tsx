@@ -93,8 +93,8 @@ const Contact = () => {
                     <div>
                       <p className="font-medium">Adresse</p>
                       <p className="text-sm text-muted-foreground">
-                        123 Rue de la Pâtisserie<br />
-                        75001 Paris, France
+                        2 rue Gervex<br />
+                        75017 Paris, France
                       </p>
                     </div>
                   </div>
@@ -103,7 +103,7 @@ const Contact = () => {
                     <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                     <div>
                       <p className="font-medium">Téléphone</p>
-                      <p className="text-sm text-muted-foreground">+33 1 23 45 67 89</p>
+                      <p className="text-sm text-muted-foreground">06 28 07 99 00</p>
                     </div>
                   </div>
 
@@ -111,7 +111,7 @@ const Contact = () => {
                     <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                     <div>
                       <p className="font-medium">Email</p>
-                      <p className="text-sm text-muted-foreground">contact@lesportifgourmand.fr</p>
+                      <p className="text-sm text-muted-foreground">contact@sportifgourmand.com</p>
                     </div>
                   </div>
 
@@ -120,36 +120,9 @@ const Contact = () => {
                     <div>
                       <p className="font-medium">Horaires</p>
                       <p className="text-sm text-muted-foreground">
-                        Lun-Ven: 9h-18h<br />
-                        Sam: 9h-12h<br />
-                        Dim: Fermé
+                        Tous les jours: 8h-18h
                       </p>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Équipes spécialisées */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Équipes Spécialisées</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div>
-                    <p className="font-medium text-sm">Service Commercial</p>
-                    <p className="text-xs text-muted-foreground">commercial@lesportifgourmand.fr</p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-sm">Partenariats</p>
-                    <p className="text-xs text-muted-foreground">partenaires@lesportifgourmand.fr</p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-sm">Presse & Communication</p>
-                    <p className="text-xs text-muted-foreground">presse@lesportifgourmand.fr</p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-sm">Service Client</p>
-                    <p className="text-xs text-muted-foreground">support@lesportifgourmand.fr</p>
                   </div>
                 </CardContent>
               </Card>

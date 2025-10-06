@@ -1,11 +1,13 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
+import adamPhoto from "@/assets/adam-bouhrara.jpg";
+import gaspardPhoto from "@/assets/gaspard-moulin.jpeg";
 
 const Histoire = () => {
   const timeline = [
     {
-      year: "2023",
+      year: "2024",
       title: "La Naissance de l'Idée",
       description: "Après des années de frustration à chercher des collations à la fois gourmandes et adaptées à une pratique sportive intensive, l'idée du Sportif Gourmand naît de la passion pour la pâtisserie française et la nutrition sportive."
     },
@@ -15,12 +17,12 @@ const Histoire = () => {
       description: "En partenariat avec le CTCPA, nous développons notre première recette de flan protéiné. Des mois de tests pour atteindre l'équilibre parfait entre goût authentique et apport nutritionnel optimal."
     },
     {
-      year: "2024",
+      year: "2025",
       title: "Reconnaissance et Soutien",
       description: "Le Sportif Gourmand intègre le réseau Pépite France et obtient le soutien de BPI France, confirmant le potentiel innovant de notre concept."
     },
     {
-      year: "2024",
+      year: "2025",
       title: "Lancement Commercial",
       description: "Lancement de notre flan pâtissier protéiné sur le marché français. Une révolution dans l'univers de la pâtisserie santé commence."
     }
@@ -39,6 +41,49 @@ const Histoire = () => {
               L'aventure du Sportif Gourmand commence par une simple observation : 
               pourquoi faut-il choisir entre plaisir gourmand et performance sportive ?
             </p>
+          </div>
+
+          {/* Fondateurs */}
+          <div className="mb-20">
+            <h2 className="text-3xl font-bold text-center mb-12">Nos Fondateurs</h2>
+            <p className="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
+              Le Sportif Gourmand est né de la rencontre entre deux passionnés : 
+              l'un expert en nutrition sportive, l'autre amateur de pâtisserie française. 
+              Ensemble, nous avons créé une nouvelle catégorie de produits qui réconcilie 
+              plaisir gourmand et performance sportive.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+              <div className="text-center">
+                <div className="mb-6 relative">
+                  <img 
+                    src={adamPhoto} 
+                    alt="Adam Bouhrara - Co-fondateur" 
+                    className="w-48 h-48 object-cover rounded-full mx-auto border-4 border-primary/20"
+                  />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Adam Bouhrara</h3>
+                <p className="text-primary font-medium mb-3">Co-fondateur</p>
+                <p className="text-muted-foreground text-sm">
+                  Passionné de nutrition sportive et d'innovation, Adam a imaginé 
+                  une nouvelle façon de concilier performance et gourmandise.
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="mb-6 relative">
+                  <img 
+                    src={gaspardPhoto} 
+                    alt="Gaspard Moulin - Co-fondateur" 
+                    className="w-48 h-48 object-cover rounded-full mx-auto border-4 border-primary/20"
+                  />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Gaspard Moulin</h3>
+                <p className="text-primary font-medium mb-3">Co-fondateur</p>
+                <p className="text-muted-foreground text-sm">
+                  Amoureux de la pâtisserie française, Gaspard apporte son expertise 
+                  pour créer des produits aussi délicieux que nutritifs.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Vision et Mission */}
