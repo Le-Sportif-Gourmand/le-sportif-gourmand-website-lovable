@@ -103,7 +103,7 @@ const Contact = () => {
                     <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                     <div>
                       <p className="font-medium">Téléphone</p>
-                      <p className="text-sm text-muted-foreground">06 28 07 99 00</p>
+                      <p className="text-sm text-muted-foreground">+33 6 28 07 99 00</p>
                     </div>
                   </div>
 

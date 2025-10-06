@@ -75,7 +75,7 @@ const Produits = () => {
                 <img 
                   src={flanProduct} 
                   alt={product.name} 
-                  className="w-[500px] h-[500px] object-contain drop-shadow-2xl animate-float"
+                  className="object-contain drop-shadow-2xl animate-float"
                 />
                 <div 
                   className="absolute inset-0 rounded-3xl opacity-20 blur-xl"

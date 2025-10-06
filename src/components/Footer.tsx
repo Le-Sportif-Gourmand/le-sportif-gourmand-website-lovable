@@ -68,20 +68,20 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                 <span className="text-muted-foreground text-sm">
-                  123 Rue de la Pâtisserie<br />
-                  75001 Paris, France
+                  2 rue Gervex<br />
+                  75017 Paris, France
                 </span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                 <span className="text-muted-foreground text-sm">
-                  +33 1 23 45 67 89
+                  +33 6 28 07 99 00
                 </span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                 <span className="text-muted-foreground text-sm">
-                  contact@lesportifgourmand.fr
+                  contact@sportifgourmand.fr
                 </span>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import banniereFlan from "@/assets/banniere-flan.png";
+import banniereFlan from "@/assets/flan-product.png";
 import { getFeaturedProduct } from "@/data/products";
 
 const HeroSection = () => {
