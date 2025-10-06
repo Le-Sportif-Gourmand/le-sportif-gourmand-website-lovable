@@ -7,24 +7,24 @@ import gaspardPhoto from "@/assets/gaspard-moulin.jpeg";
 const Histoire = () => {
   const timeline = [
     {
-      year: "2024",
+      year: "Q1 2025",
       title: "La Naissance de l'Idée",
       description: "Après des années de frustration à chercher des collations à la fois gourmandes et adaptées à une pratique sportive intensive, l'idée du Sportif Gourmand naît de la passion pour la pâtisserie française et la nutrition sportive."
     },
     {
-      year: "2024",
+      year: "Q2 2025",
+      title: "Création de l'Entreprise",
+      description: "Lancement de l'aventure entrepreneuriale après avoir confectionné et testé plusieurs recettes de pâtisseries protéinées fait-maison fonctionnelles. Notre mission est claire : réconcilier plaisir gourmand et performance sportive."
+    },
+    {
+      year: "Q3 2025",
       title: "Développement et Recherche",
-      description: "En partenariat avec le CTCPA, nous développons notre première recette de flan protéiné. Des mois de tests pour atteindre l'équilibre parfait entre goût authentique et apport nutritionnel optimal."
+      description: "En partenariat avec le CTCPA, nous développons notre première recette de flan protéiné à l'échelle industriel. Des mois de tests pour atteindre l'équilibre parfait entre goût authentique et apport nutritionnel optimal."
     },
     {
-      year: "2025",
-      title: "Reconnaissance et Soutien",
-      description: "Le Sportif Gourmand intègre le réseau Pépite France et obtient le soutien de BPI France, confirmant le potentiel innovant de notre concept."
-    },
-    {
-      year: "2025",
+      year: "Q1 2026",
       title: "Lancement Commercial",
-      description: "Lancement de notre flan pâtissier protéiné sur le marché français. Une révolution dans l'univers de la pâtisserie santé commence."
+      description: "Lancement de notre flan pâtissier protéiné sur le marché français. Une révolution dans l'univers de la nutrition sportive commence."
     }
   ];
 
@@ -45,7 +45,7 @@ const Histoire = () => {
 
           {/* Fondateurs */}
           <div className="mb-20">
-            <h2 className="text-3xl font-bold text-center mb-12">Nos Fondateurs</h2>
+            <h2 className="text-3xl font-bold text-center mb-6">Nos Fondateurs</h2>
             <p className="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
               Le Sportif Gourmand est né de la rencontre entre deux passionnés : 
               l'un expert en nutrition sportive, l'autre amateur de pâtisserie française. 
@@ -157,7 +157,7 @@ const Histoire = () => {
                 <div className="text-5xl mb-4">🌱</div>
                 <h3 className="text-xl font-semibold mb-3">Naturalité</h3>
                 <p className="text-muted-foreground">
-                  Nous privilégions les ingrédients naturels et refusons les additifs 
+                  Nous privilégions les ingrédients naturels français et refusons les additifs 
                   controversés pour des produits sains et authentiques.
                 </p>
               </div>
@@ -170,7 +170,7 @@ const Histoire = () => {
               "La pâtisserie, c'est de la science appliquée avec passion. 
               Nous appliquons cette science au service de votre performance."
             </blockquote>
-            <p className="text-muted-foreground mt-4">— L'équipe du Sportif Gourmand</p>
+            <p className="text-muted-foreground mt-4">L'équipe Le Sportif Gourmand</p>
           </div>
         </div>
       </main>
