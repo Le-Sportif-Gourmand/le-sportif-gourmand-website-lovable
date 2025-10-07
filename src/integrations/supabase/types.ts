@@ -14,7 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      sales_points: {
+        Row: {
+          address: string
+          created_at: string
+          hours: string | null
+          id: string
+          latitude: number
+          longitude: number
+          name: string
+          phone: string | null
+          type: string
+        }
+        Insert: {
+          address: string
+          created_at?: string
+          hours?: string | null
+          id?: string
+          latitude: number
+          longitude: number
+          name: string
+          phone?: string | null
+          type: string
+        }
+        Update: {
+          address?: string
+          created_at?: string
+          hours?: string | null
+          id?: string
+          latitude?: number
+          longitude?: number
+          name?: string
+          phone?: string | null
+          type?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

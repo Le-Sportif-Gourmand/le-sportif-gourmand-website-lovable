@@ -1,62 +1,77 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Phone, ExternalLink } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+
+// Fix for default marker icon in react-leaflet
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+});
+
+interface SalesPoint {
+  id: string;
+  name: string;
+  address: string;
+  phone: string | null;
+  hours: string | null;
+  type: string;
+  latitude: number;
+  longitude: number;
+  created_at: string;
+}
 
 const OuNousTrouver = () => {
-  const [mapApiKey, setMapApiKey] = useState("");
-  const [showMap, setShowMap] = useState(false);
+  const [salesPoints, setSalesPoints] = useState<SalesPoint[]>([]);
+  const [latestSalesPoints, setLatestSalesPoints] = useState<SalesPoint[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { toast } = useToast();
 
-  // Points de vente fictifs pour la démo
-  const salesPoints = [
-    {
-      id: 1,
-      name: "Fitness Park République",
-      address: "45 Boulevard du Temple, 75003 Paris",
-      phone: "01 42 74 17 11",
-      hours: "Lun-Dim: 6h-23h",
-      type: "Salle de sport",
-      coordinates: { lat: 48.8647, lng: 2.3641 }
-    },
-    {
-      id: 2,
-      name: "Bio c' Bon Marais",
-      address: "23 Rue des Rosiers, 75004 Paris",
-      phone: "01 44 54 93 85",
-      hours: "Lun-Sam: 8h30-20h, Dim: 9h-19h",
-      type: "Magasin bio",
-      coordinates: { lat: 48.8571, lng: 2.3614 }
-    },
-    {
-      id: 3,
-      name: "Naturalia Châtelet",
-      address: "8 Rue de Rivoli, 75004 Paris",
-      phone: "01 40 26 03 91",
-      hours: "Lun-Sam: 8h-21h, Dim: 9h-20h",
-      type: "Magasin bio",
-      coordinates: { lat: 48.8566, lng: 2.3485 }
-    },
-    {
-      id: 4,
-      name: "L'Orange Bleue Bastille",
-      address: "12 Rue de la Roquette, 75011 Paris",
-      phone: "01 47 00 47 28",
-      hours: "Lun-Ven: 6h-23h, Sam-Dim: 8h-20h",
-      type: "Salle de sport",
-      coordinates: { lat: 48.8532, lng: 2.3723 }
-    }
-  ];
+  useEffect(() => {
+    const fetchSalesPoints = async () => {
+      try {
+        // Fetch all sales points
+        const { data: allPoints, error: allError } = await supabase
+          .from("sales_points")
+          .select("*")
+          .order("created_at", { ascending: false });
 
-  const handleShowMap = () => {
-    if (mapApiKey.trim()) {
-      setShowMap(true);
-    } else {
-      alert("Veuillez entrer votre clé API Google Maps");
-    }
-  };
+        if (allError) throw allError;
+
+        // Fetch latest 4 sales points
+        const { data: latestPoints, error: latestError } = await supabase
+          .from("sales_points")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .limit(4);
+
+        if (latestError) throw latestError;
+
+        setSalesPoints(allPoints || []);
+        setLatestSalesPoints(latestPoints || []);
+      } catch (error) {
+        console.error("Error fetching sales points:", error);
+        toast({
+          title: "Erreur",
+          description: "Impossible de charger les points de vente",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSalesPoints();
+  }, [toast]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -73,63 +88,57 @@ const OuNousTrouver = () => {
             </p>
           </div>
 
-          {/* Configuration de la carte */}
-          {!showMap && (
-            <Card className="mb-8 border-primary/20">
-              <CardHeader>
-                <CardTitle className="text-center">Afficher la carte interactive</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-center text-muted-foreground">
-                  Pour afficher la carte interactive avec tous nos points de vente, 
-                  veuillez entrer votre clé API Google Maps :
-                </p>
-                <div className="flex gap-4 max-w-md mx-auto">
-                  <Input
-                    type="text"
-                    placeholder="Clé API Google Maps"
-                    value={mapApiKey}
-                    onChange={(e) => setMapApiKey(e.target.value)}
-                  />
-                  <Button onClick={handleShowMap}>
-                    Afficher
-                  </Button>
-                </div>
-                <p className="text-xs text-muted-foreground text-center">
-                  Obtenez votre clé API sur{" "}
-                  <a 
-                    href="https://console.cloud.google.com/apis/credentials" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline"
-                  >
-                    Google Cloud Console
-                  </a>
-                </p>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Carte interactive (placeholder) */}
-          {showMap && (
+          {/* Carte interactive */}
+          {!isLoading && salesPoints.length > 0 && (
             <Card className="mb-8">
               <CardContent className="p-0">
-                <div className="h-96 bg-muted rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="h-12 w-12 text-primary mx-auto mb-4" />
-                    <p className="text-lg font-semibold">Carte Google Maps</p>
-                    <p className="text-muted-foreground">
-                      Ici s'afficherait la carte interactive avec les {salesPoints.length} points de vente
-                    </p>
-                  </div>
+                <div className="h-96 rounded-lg overflow-hidden">
+                  <MapContainer
+                    center={[48.8566, 2.3522]}
+                    zoom={12}
+                    style={{ height: "100%", width: "100%" }}
+                  >
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    {salesPoints.map((point) => (
+                      <Marker
+                        key={point.id}
+                        position={[Number(point.latitude), Number(point.longitude)]}
+                      >
+                        <Popup>
+                          <div className="text-sm">
+                            <p className="font-semibold">{point.name}</p>
+                            <p className="text-xs text-muted-foreground">{point.type}</p>
+                            <p className="text-xs mt-1">{point.address}</p>
+                          </div>
+                        </Popup>
+                      </Marker>
+                    ))}
+                  </MapContainer>
                 </div>
               </CardContent>
             </Card>
           )}
 
-          {/* Liste des points de vente */}
+          {/* Les 4 derniers points de vente ajoutés */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-center mb-6">
+              Nos <span className="text-primary">Derniers Points de Vente</span>
+            </h2>
+            <p className="text-center text-muted-foreground mb-8">
+              Découvrez les 4 dernières salles et magasins qui vendent nos produits
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            {salesPoints.map((point) => (
+            {isLoading ? (
+              <div className="col-span-2 text-center py-8">
+                <p className="text-muted-foreground">Chargement des points de vente...</p>
+              </div>
+            ) : (
+              latestSalesPoints.map((point) => (
               <Card key={point.id} className="hover:shadow-lg transition-shadow duration-300">
                 <CardHeader>
                   <div className="flex items-start justify-between">
@@ -145,14 +154,18 @@ const OuNousTrouver = () => {
                     <MapPin className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
                     <span className="text-sm">{point.address}</span>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                    <span className="text-sm">{point.hours}</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Phone className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                    <span className="text-sm">{point.phone}</span>
-                  </div>
+                  {point.hours && (
+                    <div className="flex items-center space-x-3">
+                      <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                      <span className="text-sm">{point.hours}</span>
+                    </div>
+                  )}
+                  {point.phone && (
+                    <div className="flex items-center space-x-3">
+                      <Phone className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                      <span className="text-sm">{point.phone}</span>
+                    </div>
+                  )}
                   <div className="pt-2">
                     <a
                       href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(point.address)}`}
@@ -166,7 +179,8 @@ const OuNousTrouver = () => {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+              ))
+            )}
           </div>
 
           {/* Informations supplémentaires */}
