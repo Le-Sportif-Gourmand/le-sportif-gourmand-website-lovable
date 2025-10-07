@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      google_reviews: {
+        Row: {
+          author_name: string
+          author_photo_url: string | null
+          created_at: string
+          google_review_id: string
+          id: string
+          rating: number
+          relative_time_description: string
+          text: string
+          time: string
+          updated_at: string
+        }
+        Insert: {
+          author_name: string
+          author_photo_url?: string | null
+          created_at?: string
+          google_review_id: string
+          id?: string
+          rating: number
+          relative_time_description: string
+          text: string
+          time: string
+          updated_at?: string
+        }
+        Update: {
+          author_name?: string
+          author_photo_url?: string | null
+          created_at?: string
+          google_review_id?: string
+          id?: string
+          rating?: number
+          relative_time_description?: string
+          text?: string
+          time?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       sales_points: {
         Row: {
           address: string
