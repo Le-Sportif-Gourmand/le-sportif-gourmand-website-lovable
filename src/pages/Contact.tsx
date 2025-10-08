@@ -5,8 +5,100 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
+
+const contactFormSchema = z.object({
+  firstName: z.string().min(2, "Le prénom doit contenir au moins 2 caractères").max(50, "Le prénom est trop long"),
+  lastName: z.string().min(2, "Le nom doit contenir au moins 2 caractères").max(50, "Le nom est trop long"),
+  email: z.string().email("Email invalide").max(255, "L'email est trop long"),
+  phone: z.string().optional(),
+  subject: z.string().min(1, "Veuillez sélectionner un sujet"),
+  message: z.string().min(10, "Le message doit contenir au moins 10 caractères").max(2000, "Le message est trop long"),
+});
+
+type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const Contact = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (data: ContactFormValues) => {
+    setIsSubmitting(true);
+    
+    try {
+      console.log('Submitting contact form:', data);
+      
+      // Store in database
+      const { error: dbError } = await supabase
+        .from('contact_messages')
+        .insert({
+          first_name: data.firstName,
+          last_name: data.lastName,
+          email: data.email,
+          phone: data.phone || null,
+          subject: data.subject,
+          message: data.message,
+        });
+
+      if (dbError) {
+        console.error('Database error:', dbError);
+        throw new Error('Erreur lors de l\'enregistrement du message');
+      }
+
+      // Send email
+      const { error: emailError } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone,
+          subject: data.subject,
+          message: data.message,
+        },
+      });
+
+      if (emailError) {
+        console.error('Email error:', emailError);
+        // Don't throw - message was saved, email is a bonus
+      }
+
+      toast({
+        title: "Message envoyé !",
+        description: "Nous avons bien reçu votre message et vous répondrons dans les plus brefs délais.",
+      });
+
+      form.reset();
+    } catch (error: any) {
+      console.error('Contact form error:', error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -30,51 +122,116 @@ const Contact = () => {
                 <CardHeader>
                   <CardTitle>Envoyez-nous un message</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Prénom</label>
-                      <Input placeholder="Votre prénom" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Nom</label>
-                      <Input placeholder="Votre nom" />
-                    </div>
-                  </div>
+                <CardContent>
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="firstName"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Prénom</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Votre prénom" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="lastName"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Nom</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Votre nom" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
 
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Email</label>
-                    <Input type="email" placeholder="votre.email@exemple.com" />
-                  </div>
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                              <Input type="email" placeholder="votre.email@exemple.com" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Téléphone (optionnel)</label>
-                    <Input type="tel" placeholder="+33 1 23 45 67 89" />
-                  </div>
+                      <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Téléphone (optionnel)</FormLabel>
+                            <FormControl>
+                              <Input type="tel" placeholder="+33 1 23 45 67 89" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Sujet</label>
-                    <select className="w-full px-3 py-2 border border-input rounded-md bg-background">
-                      <option>Question produit</option>
-                      <option>Demande de partenariat</option>
-                      <option>Suggestion point de vente</option>
-                      <option>Service client</option>
-                      <option>Presse / Médias</option>
-                      <option>Autre</option>
-                    </select>
-                  </div>
+                      <FormField
+                        control={form.control}
+                        name="subject"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Sujet</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Sélectionnez un sujet" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="question-produit">Question produit</SelectItem>
+                                <SelectItem value="partenariat">Demande de partenariat</SelectItem>
+                                <SelectItem value="point-vente">Suggestion point de vente</SelectItem>
+                                <SelectItem value="service-client">Service client</SelectItem>
+                                <SelectItem value="presse">Presse / Médias</SelectItem>
+                                <SelectItem value="autre">Autre</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Message</label>
-                    <Textarea 
-                      placeholder="Décrivez votre demande..."
-                      className="min-h-32"
-                    />
-                  </div>
+                      <FormField
+                        control={form.control}
+                        name="message"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Message</FormLabel>
+                            <FormControl>
+                              <Textarea 
+                                placeholder="Décrivez votre demande..."
+                                className="min-h-32"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                  <Button className="w-full">
-                    Envoyer le message
-                  </Button>
+                      <Button type="submit" className="w-full" disabled={isSubmitting}>
+                        {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
+                      </Button>
+                    </form>
+                  </Form>
                 </CardContent>
               </Card>
             </div>
