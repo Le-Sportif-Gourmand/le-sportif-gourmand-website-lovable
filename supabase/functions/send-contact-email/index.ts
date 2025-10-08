@@ -29,7 +29,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log('Sending contact email:', { firstName, lastName, email, subject });
 
     const emailResponse = await resend.emails.send({
-      from: "Le Sportif Gourmand <noreply@sportifgourmand.com>",
+      from: "Le Sportif Gourmand <noreply@notifications.sportifgourmand.com>",
       to: ["contact@sportifgourmand.com"],
       replyTo: email,
       subject: `[Contact] ${subject} - ${firstName} ${lastName}`,
