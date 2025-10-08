@@ -1,14 +1,10 @@
-import { Star, RefreshCw } from "lucide-react";
+import { Star } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "./ui/skeleton";
-import { Button } from "./ui/button";
-import { useToast } from "@/hooks/use-toast";
 
 const GoogleReviews = () => {
-  const { toast } = useToast();
-  
   const { data: reviews = [], isLoading } = useQuery({
     queryKey: ['google-reviews'],
     queryFn: async () => {
@@ -23,35 +19,7 @@ const GoogleReviews = () => {
     },
   });
 
-  const syncReviews = async () => {
-    try {
-      toast({
-        title: "Synchronisation en cours...",
-        description: "Récupération des avis Google",
-      });
-
-      const { data, error } = await supabase.functions.invoke('sync-google-reviews');
-      
-      if (error) throw error;
-
-      toast({
-        title: "Synchronisation réussie",
-        description: `${data.synced} avis synchronisés`,
-      });
-
-      // Refresh the reviews
-      window.location.reload();
-    } catch (error) {
-      console.error('Error syncing reviews:', error);
-      toast({
-        title: "Erreur",
-        description: "Impossible de synchroniser les avis",
-        variant: "destructive",
-      });
-    }
-  };
-
-  const averageRatingNum = reviews.length > 0 
+  const averageRatingNum = reviews.length > 0
     ? reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length
     : 0;
   const averageRating = averageRatingNum.toFixed(1);
@@ -86,17 +54,7 @@ const GoogleReviews = () => {
     <section className="py-16 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <h2 className="text-3xl font-bold">Avis de nos clients</h2>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={syncReviews}
-              title="Synchroniser les avis Google"
-            >
-              <RefreshCw className="h-5 w-5" />
-            </Button>
-          </div>
+          <h2 className="text-3xl font-bold mb-4">Avis de nos clients</h2>
           <div className="flex items-center justify-center space-x-2 mb-2">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
@@ -118,13 +76,9 @@ const GoogleReviews = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviews.length === 0 ? (
             <div className="col-span-full text-center py-12">
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground">
                 Aucun avis disponible pour le moment
               </p>
-              <Button onClick={syncReviews} variant="outline">
-                <RefreshCw className="h-4 w-4 mr-2" />
-                Synchroniser les avis Google
-              </Button>
             </div>
           ) : (
             reviews.map((review) => (

@@ -43,9 +43,9 @@ Deno.serve(async (req) => {
     const placeId = searchData.candidates[0].place_id;
     console.log('Found place_id:', placeId);
 
-    // Get place details including reviews
+    // Get place details including reviews in French
     const detailsResponse = await fetch(
-      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews,rating,user_ratings_total&key=${GOOGLE_PLACES_API_KEY}`
+      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews,rating,user_ratings_total&language=fr&key=${GOOGLE_PLACES_API_KEY}`
     );
 
     if (!detailsResponse.ok) {
@@ -63,41 +63,85 @@ Deno.serve(async (req) => {
     }
 
     const reviews = detailsData.result.reviews;
+    
+    // Get existing reviews from database
+    const { data: existingReviews, error: fetchError } = await supabase
+      .from('google_reviews')
+      .select('google_review_id');
+    
+    if (fetchError) {
+      console.error('Error fetching existing reviews:', fetchError);
+      throw fetchError;
+    }
+
+    const existingReviewIds = new Set(existingReviews?.map(r => r.google_review_id) || []);
+    const currentGoogleReviewIds = new Set<string>();
     let insertedCount = 0;
+    let updatedCount = 0;
     let skippedCount = 0;
 
     // Insert or update reviews
     for (const review of reviews) {
+      // Use author_name + time as unique identifier
+      const uniqueId = `${review.author_name}_${review.time}`;
+      currentGoogleReviewIds.add(uniqueId);
+      
       const reviewData = {
-        google_review_id: review.time.toString(), // Using timestamp as unique ID
+        google_review_id: uniqueId,
         author_name: review.author_name,
         author_photo_url: review.profile_photo_url || null,
         rating: review.rating,
-        text: review.text,
+        text: review.text, // Now in French thanks to language=fr parameter
         relative_time_description: review.relative_time_description,
         time: new Date(review.time * 1000).toISOString(),
       };
 
+      const isExisting = existingReviewIds.has(uniqueId);
       const { error } = await supabase
         .from('google_reviews')
         .upsert(reviewData, { onConflict: 'google_review_id' });
 
       if (error) {
-        console.error('Error inserting review:', error);
+        console.error('Error upserting review:', error);
         skippedCount++;
       } else {
-        insertedCount++;
+        if (isExisting) {
+          updatedCount++;
+        } else {
+          insertedCount++;
+        }
       }
     }
 
-    console.log(`Synced ${insertedCount} reviews, skipped ${skippedCount}`);
+    // Delete reviews that no longer exist on Google
+    const reviewsToDelete = Array.from(existingReviewIds).filter(
+      id => !currentGoogleReviewIds.has(id)
+    );
+    
+    let deletedCount = 0;
+    if (reviewsToDelete.length > 0) {
+      const { error: deleteError } = await supabase
+        .from('google_reviews')
+        .delete()
+        .in('google_review_id', reviewsToDelete);
+      
+      if (deleteError) {
+        console.error('Error deleting reviews:', deleteError);
+      } else {
+        deletedCount = reviewsToDelete.length;
+      }
+    }
+
+    console.log(`Inserted: ${insertedCount}, Updated: ${updatedCount}, Deleted: ${deletedCount}, Skipped: ${skippedCount}`);
 
     return new Response(
       JSON.stringify({
         success: true,
         total_reviews: detailsData.result.user_ratings_total,
         average_rating: detailsData.result.rating,
-        synced: insertedCount,
+        inserted: insertedCount,
+        updated: updatedCount,
+        deleted: deletedCount,
         skipped: skippedCount,
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
