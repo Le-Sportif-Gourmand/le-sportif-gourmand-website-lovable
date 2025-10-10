@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import partnerCtcpa from "@/assets/partner-ctcpa.png";
 import partnerBpi from "@/assets/partner-bpi.png";
 import partnerPepite from "@/assets/partner-pepite.png";
+import { Button } from "@/components/ui/button";
 
 const Partenaires = () => {
   const partners = [
@@ -116,11 +117,8 @@ const Partenaires = () => {
               Vous êtes intéressé par un partenariat avec Le Sportif Gourmand ? 
               Contactez-nous pour discuter des opportunités de collaboration.
             </p>
-            <a 
-              href="/contact" 
-              className="inline-flex items-center space-x-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              <span>Nous contacter</span>
+            <a href="/contact">
+              <Button variant="default" size="lg">Nous contacter</Button>
             </a>
           </div>
         </div>

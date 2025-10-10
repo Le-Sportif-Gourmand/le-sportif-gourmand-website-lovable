@@ -194,9 +194,11 @@ const OuNousTrouver = () => {
                   Vous souhaitez référencer nos produits dans votre établissement ? 
                   Contactez notre équipe commerciale pour découvrir nos conditions de partenariat.
                 </p>
-                <Button>
-                  Devenir partenaire
-                </Button>
+                <a href="/contact">
+                  <Button variant="outline">
+                    Devenir partenaire
+                  </Button>
+                </a>
               </CardContent>
             </Card>
 
@@ -209,9 +211,11 @@ const OuNousTrouver = () => {
                   La livraison à domicile n'est pas encore disponible. 
                   Contactez-nous pour nous faire part de votre intérêt !
                 </p>
-                <Button variant="outline">
-                  Manifester votre intérêt
-                </Button>
+                <a href="/contact">
+                  <Button variant="outline">
+                    Manifester votre intérêt
+                  </Button>
+                </a>
               </CardContent>
             </Card>
           </div>
@@ -223,11 +227,8 @@ const OuNousTrouver = () => {
               Faites-nous savoir où vous aimeriez trouver nos produits ! 
               Nous travaillons constamment à l'expansion de notre réseau de distribution.
             </p>
-            <a 
-              href="/contact" 
-              className="inline-flex items-center space-x-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              <span>Suggérer un point de vente</span>
+            <a href="/contact">
+              <Button variant="default" size="lg">Suggérer un point de vente</Button>
             </a>
           </div>
         </div>
