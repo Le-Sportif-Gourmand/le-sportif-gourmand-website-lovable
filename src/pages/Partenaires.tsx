@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import partnerCtcpa from "@/assets/partner-ctcpa.png";
 import partnerBpi from "@/assets/partner-bpi.png";
@@ -7,6 +8,8 @@ import partnerPepite from "@/assets/partner-pepite.png";
 import { Button } from "@/components/ui/button";
 
 const Partenaires = () => {
+  const navigate = useNavigate();
+
   const partners = [
     {
       name: "CTCPA",
@@ -117,9 +120,7 @@ const Partenaires = () => {
               Vous êtes intéressé par un partenariat avec Le Sportif Gourmand ? 
               Contactez-nous pour discuter des opportunités de collaboration.
             </p>
-            <a href="/contact">
-              <Button variant="default" size="lg">Nous contacter</Button>
-            </a>
+              <Button variant="default" size="lg" onClick={() => navigate('/contact')}>Nous contacter</Button>
           </div>
         </div>
       </main>

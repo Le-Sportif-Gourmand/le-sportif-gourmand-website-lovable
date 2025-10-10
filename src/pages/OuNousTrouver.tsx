@@ -4,6 +4,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Phone, ExternalLink } from "lucide-react";
@@ -35,6 +36,7 @@ const OuNousTrouver = () => {
   const [latestSalesPoints, setLatestSalesPoints] = useState<SalesPoint[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSalesPoints = async () => {
@@ -194,11 +196,9 @@ const OuNousTrouver = () => {
                   Vous souhaitez référencer nos produits dans votre établissement ? 
                   Contactez notre équipe commerciale pour découvrir nos conditions de partenariat.
                 </p>
-                <a href="/contact">
-                  <Button variant="outline">
-                    Devenir partenaire
-                  </Button>
-                </a>
+                <Button variant="outline" onClick={() => navigate('/contact')}>
+                  Devenir partenaire
+                </Button>
               </CardContent>
             </Card>
 
@@ -211,11 +211,9 @@ const OuNousTrouver = () => {
                   La livraison à domicile n'est pas encore disponible. 
                   Contactez-nous pour nous faire part de votre intérêt !
                 </p>
-                <a href="/contact">
-                  <Button variant="outline">
-                    Manifester votre intérêt
-                  </Button>
-                </a>
+                <Button variant="outline" onClick={() => navigate('/contact')}>
+                  Manifester votre intérêt
+                </Button>
               </CardContent>
             </Card>
           </div>
@@ -227,9 +225,7 @@ const OuNousTrouver = () => {
               Faites-nous savoir où vous aimeriez trouver nos produits ! 
               Nous travaillons constamment à l'expansion de notre réseau de distribution.
             </p>
-            <a href="/contact">
-              <Button variant="default" size="lg">Suggérer un point de vente</Button>
-            </a>
+            <Button variant="default" size="lg" onClick={() => navigate('/contact')}>Suggérer un point de vente</Button>
           </div>
         </div>
       </main>
