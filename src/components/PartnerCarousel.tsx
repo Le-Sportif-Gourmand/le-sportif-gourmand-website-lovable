@@ -12,6 +12,10 @@ const PartnerCarousel = () => {
     { name: "CTCPA", logo: partnerCtcpa, url: "https://www.ctcpa.org/" },
     { name: "BPI France", logo: partnerBpi, url: "https://www.bpifrance.fr/" },
     { name: "Pépite France", logo: partnerPepite, url: "https://www.pepite-france.fr/" },
+    // Duplicate for seamless scrolling
+    { name: "CTCPA", logo: partnerCtcpa, url: "https://www.ctcpa.org/" },
+    { name: "BPI France", logo: partnerBpi, url: "https://www.bpifrance.fr/" },
+    { name: "Pépite France", logo: partnerPepite, url: "https://www.pepite-france.fr/" },
   ];
 
   return (
