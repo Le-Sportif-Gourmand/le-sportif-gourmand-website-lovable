@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import banniereFlan from "@/assets/flan-product.png";
@@ -5,6 +6,7 @@ import { getFeaturedProduct } from "@/data/products";
 
 const HeroSection = () => {
   const product = getFeaturedProduct();
+  const navigate = useNavigate();
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -61,14 +63,14 @@ const HeroSection = () => {
               <Button 
                 size="lg" 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-xl"
-                onClick={() => window.location.href = '/ou-nous-trouver'}
+                onClick={() => navigate('/ou-nous-trouver')}
               >
                 Découvrir nos points de vente
               </Button>
               <Button 
                 variant="outline" 
                 size="lg"
-                onClick={() => window.location.href = '/produits'}
+                onClick={() => navigate('/produits')}
               >
                 En savoir plus
               </Button>

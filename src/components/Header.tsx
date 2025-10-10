@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import logoGauche from "@/assets/logo-gauche.png";
@@ -21,7 +22,7 @@ const Header = () => {
         <div className="flex h-24 items-center justify-between">
           {/* Logo gauche */}
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-3">
+            <Link to="/" className="flex items-center space-x-3">
               <img 
                 src={logoGauche} 
                 alt="Le Sportif Gourmand Logo" 
@@ -31,19 +32,19 @@ const Header = () => {
                   filter: 'brightness(1.2)'
                 }}
               />
-            </a>
+            </Link>
           </div>
 
           {/* Navigation desktop */}
           <nav className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className="text-foreground hover:text-primary transition-colors duration-200 font-medium text-lg"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -82,14 +83,14 @@ const Header = () => {
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 border-t bg-background">
               {navigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className="block px-3 py-2 text-foreground hover:text-primary transition-colors duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
               <div className="pt-4 pb-2">
                 <img 

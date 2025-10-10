@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
 import logoGauche from "@/assets/logo-gauche.png";
 
@@ -53,11 +54,11 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Navigation</h4>
             <ul className="space-y-2">
-              <li><a href="/produits" className="text-muted-foreground hover:text-primary transition-colors">Produits</a></li>
-              <li><a href="/partenaires" className="text-muted-foreground hover:text-primary transition-colors">Partenaires</a></li>
-              <li><a href="/histoire" className="text-muted-foreground hover:text-primary transition-colors">Histoire</a></li>
-              <li><a href="/ou-nous-trouver" className="text-muted-foreground hover:text-primary transition-colors">Où nous trouver</a></li>
-              <li><a href="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
+              <li><Link to="/produits" className="text-muted-foreground hover:text-primary transition-colors">Produits</Link></li>
+              <li><Link to="/partenaires" className="text-muted-foreground hover:text-primary transition-colors">Partenaires</Link></li>
+              <li><Link to="/histoire" className="text-muted-foreground hover:text-primary transition-colors">Histoire</Link></li>
+              <li><Link to="/ou-nous-trouver" className="text-muted-foreground hover:text-primary transition-colors">Où nous trouver</Link></li>
+              <li><Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link></li>
             </ul>
           </div>
 
