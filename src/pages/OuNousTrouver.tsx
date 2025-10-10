@@ -5,6 +5,7 @@ import L from "leaflet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Phone, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -89,9 +90,11 @@ const OuNousTrouver = () => {
           </div>
 
           {/* Carte interactive */}
-          {!isLoading && salesPoints.length > 0 && (
-            <Card className="mb-8">
-              <CardContent className="p-0">
+          <Card className="mb-8">
+            <CardContent className="p-0">
+              {isLoading ? (
+                <Skeleton className="h-96 rounded-lg" />
+              ) : salesPoints.length > 0 ? (
                 <div className="h-96 rounded-lg overflow-hidden">
                   <MapContainer
                     center={[48.8566, 2.3522]}
@@ -118,9 +121,13 @@ const OuNousTrouver = () => {
                     ))}
                   </MapContainer>
                 </div>
-              </CardContent>
-            </Card>
-          )}
+              ) : (
+                <div className="h-96 flex items-center justify-center">
+                  <p className="text-muted-foreground">Aucun point de vente disponible</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
           {/* Les 4 derniers points de vente ajoutés */}
           <div className="mb-8">

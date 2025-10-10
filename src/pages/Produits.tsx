@@ -1,13 +1,16 @@
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import flanProduct from "@/assets/flan-product.png";
 import madeInFrance from "@/assets/made-in-france.png";
 import { products } from "@/data/products";
 
 const Produits = () => {
   const product = products[0]; // Premier produit
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -72,17 +75,25 @@ const Produits = () => {
 
             <div className="order-1 lg:order-2 flex justify-center">
               <div className="relative bg-card/30 backdrop-blur-sm p-12 rounded-3xl border border-primary/20">
+                {!imageLoaded && (
+                  <Skeleton className="w-full h-[400px] rounded-lg" />
+                )}
                 <img 
                   src={flanProduct} 
                   alt={product.name} 
-                  className="object-contain drop-shadow-2xl animate-float"
+                  className={`object-contain drop-shadow-2xl animate-float transition-opacity duration-300 ${
+                    imageLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  onLoad={() => setImageLoaded(true)}
                 />
-                <div 
-                  className="absolute inset-0 rounded-3xl opacity-20 blur-xl"
-                  style={{
-                    background: "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)"
-                  }}
-                />
+                {imageLoaded && (
+                  <div 
+                    className="absolute inset-0 rounded-3xl opacity-20 blur-xl"
+                    style={{
+                      background: "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)"
+                    }}
+                  />
+                )}
               </div>
             </div>
           </div>
