@@ -1,14 +1,10 @@
-import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import adamPhoto from "@/assets/adam-bouhrara.jpg";
 import gaspardPhoto from "@/assets/gaspard-moulin.jpeg";
 
 const Histoire = () => {
-  const [adamLoaded, setAdamLoaded] = useState(false);
-  const [gaspardLoaded, setGaspardLoaded] = useState(false);
   const timeline = [
     {
       year: "Q1 2025",
@@ -58,17 +54,11 @@ const Histoire = () => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
               <div className="text-center">
-                <div className="mb-6 relative flex justify-center">
-                  {!adamLoaded && (
-                    <Skeleton className="w-48 h-48 rounded-full" />
-                  )}
+                <div className="mb-6 relative">
                   <img 
                     src={adamPhoto} 
                     alt="Adam Bouhrara - Co-fondateur" 
-                    className={`w-48 h-48 object-cover rounded-full border-4 border-primary/20 transition-opacity duration-300 ${
-                      adamLoaded ? 'opacity-100' : 'opacity-0 absolute'
-                    }`}
-                    onLoad={() => setAdamLoaded(true)}
+                    className="w-48 h-48 object-cover rounded-full mx-auto border-4 border-primary/20"
                   />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Adam Bouhrara</h3>
@@ -79,17 +69,11 @@ const Histoire = () => {
                 </p>
               </div>
               <div className="text-center">
-                <div className="mb-6 relative flex justify-center">
-                  {!gaspardLoaded && (
-                    <Skeleton className="w-48 h-48 rounded-full" />
-                  )}
+                <div className="mb-6 relative">
                   <img 
                     src={gaspardPhoto} 
                     alt="Gaspard Moulin - Co-fondateur" 
-                    className={`w-48 h-48 object-cover rounded-full border-4 border-primary/20 transition-opacity duration-300 ${
-                      gaspardLoaded ? 'opacity-100' : 'opacity-0 absolute'
-                    }`}
-                    onLoad={() => setGaspardLoaded(true)}
+                    className="w-48 h-48 object-cover rounded-full mx-auto border-4 border-primary/20"
                   />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Gaspard Moulin</h3>

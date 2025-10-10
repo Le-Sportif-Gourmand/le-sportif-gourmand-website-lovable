@@ -1,15 +1,18 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 import partnerCtcpa from "@/assets/partner-ctcpa.png";
 import partnerBpi from "@/assets/partner-bpi.png";
 import partnerPepite from "@/assets/partner-pepite.png";
+import madeInFrance from "@/assets/made-in-france.png";
 
 const PartnerCarousel = () => {
   const partners = [
+    { name: "CTCPA", logo: partnerCtcpa, url: "https://www.ctcpa.org/" },
+    { name: "BPI France", logo: partnerBpi, url: "https://www.bpifrance.fr/" },
+    { name: "Pépite France", logo: partnerPepite, url: "https://www.pepite-france.fr/" },
+    // Duplicate for seamless scrolling
+    { name: "CTCPA", logo: partnerCtcpa, url: "https://www.ctcpa.org/" },
+    { name: "BPI France", logo: partnerBpi, url: "https://www.bpifrance.fr/" },
+    { name: "Pépite France", logo: partnerPepite, url: "https://www.pepite-france.fr/" },
+    // Duplicate for seamless scrolling
     { name: "CTCPA", logo: partnerCtcpa, url: "https://www.ctcpa.org/" },
     { name: "BPI France", logo: partnerBpi, url: "https://www.bpifrance.fr/" },
     { name: "Pépite France", logo: partnerPepite, url: "https://www.pepite-france.fr/" },
@@ -22,38 +25,25 @@ const PartnerCarousel = () => {
           Ils nous font confiance
         </h2>
         
-        <Carousel
-          opts={{
-            align: "center",
-            loop: true,
-          }}
-          plugins={[
-            Autoplay({
-              delay: 2000,
-              stopOnInteraction: false,
-            }),
-          ]}
-          className="w-full max-w-5xl mx-auto"
-        >
-          <CarouselContent className="-ml-4">
+        <div className="relative overflow-hidden">
+          <div className="flex animate-scroll">
             {partners.map((partner, index) => (
-              <CarouselItem key={index} className="pl-4 basis-1/3 md:basis-1/4 lg:basis-1/5">
-                <a
-                  href={partner.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center hover:scale-105 transition-transform duration-300 p-4"
-                >
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="max-h-16 w-auto opacity-70 hover:opacity-100 transition-opacity duration-300"
-                  />
-                </a>
-              </CarouselItem>
+              <a
+                key={index}
+                href={partner.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 w-48 mx-8 flex items-center justify-center hover:scale-105 transition-transform duration-300"
+              >
+                <img
+                  src={partner.logo}
+                  alt={partner.name}
+                  className="max-h-16 w-auto opacity-70 hover:opacity-100 transition-opacity duration-300"
+                />
+              </a>
             ))}
-          </CarouselContent>
-        </Carousel>
+          </div>
+        </div>
       </div>
     </section>
   );

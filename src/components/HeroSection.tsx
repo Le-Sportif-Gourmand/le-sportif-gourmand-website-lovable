@@ -1,13 +1,10 @@
-import { useState } from "react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { Skeleton } from "./ui/skeleton";
 import banniereFlan from "@/assets/flan-product.png";
 import { getFeaturedProduct } from "@/data/products";
 
 const HeroSection = () => {
   const product = getFeaturedProduct();
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -81,27 +78,19 @@ const HeroSection = () => {
           {/* Image bannière */}
           <div className="relative flex justify-center lg:justify-end">
             <div className="relative animate-float">
-              {!imageLoaded && (
-                <Skeleton className="w-full max-w-2xl h-[500px] rounded-lg" />
-              )}
               <img 
                 src={banniereFlan} 
                 alt={product.name} 
-                className={`w-full max-w-2xl h-auto object-contain drop-shadow-2xl transition-opacity duration-300 ${
-                  imageLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
-                onLoad={() => setImageLoaded(true)}
+                className="w-full max-w-2xl h-auto object-contain drop-shadow-2xl"
               />
               
               {/* Effet de glow doré */}
-              {imageLoaded && (
-                <div 
-                  className="absolute inset-0 opacity-20 blur-xl"
-                  style={{
-                    background: "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)"
-                  }}
-                />
-              )}
+              <div 
+                className="absolute inset-0 opacity-20 blur-xl"
+                style={{
+                  background: "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)"
+                }}
+              />
             </div>
           </div>
 
