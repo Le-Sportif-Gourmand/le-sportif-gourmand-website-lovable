@@ -23,15 +23,16 @@ const SEO = ({
 }: SEOProps) => {
   const siteUrl = "https://www.lesportifgourmand.com";
   const fullCanonical = canonical ? `${siteUrl}${canonical}` : siteUrl;
+  const isHome = !canonical || canonical === "/";
 
   return (
     <Helmet>
       {/* Basic Meta Tags */}
       <title>{title}</title>
-      <meta name="description" content={description} />
+      {!isHome && <meta name="description" content={description} />}
       <meta name="keywords" content={keywords} />
       <meta name="author" content="Le Sportif Gourmand" />
-      <link rel="canonical" href={fullCanonical} />
+      {!isHome && <link rel="canonical" href={fullCanonical} />}
 
       {/* Open Graph */}
       <meta property="og:title" content={title} />
