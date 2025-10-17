@@ -3,8 +3,14 @@ import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import adamPhoto from "@/assets/adam-bouhrara.jpg";
 import gaspardPhoto from "@/assets/gaspard-moulin.jpeg";
+import SEO from "@/components/SEO";
+import { breadcrumbSchema } from "@/lib/structuredData";
 
 const Histoire = () => {
+  const breadcrumb = breadcrumbSchema([
+    { name: "Accueil", url: "/" },
+    { name: "Notre Histoire", url: "/histoire" }
+  ]);
   const timeline = [
     {
       year: "Q1 2025",
@@ -30,6 +36,13 @@ const Histoire = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Notre Histoire - Fondateurs & Mission | Le Sportif Gourmand"
+        description="Découvrez l'histoire du Sportif Gourmand, créé par Adam Bouhrara et Gaspard Moulin pour réconcilier plaisir gourmand et performance sportive. Notre parcours entrepreneurial."
+        keywords="histoire Le Sportif Gourmand, fondateurs, Adam Bouhrara, Gaspard Moulin, startup food, entrepreneuriat, pâtisserie innovante"
+        canonical="/histoire"
+        structuredData={breadcrumb}
+      />
       <Header />
       <main className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

@@ -5,12 +5,30 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import flanProduct from "@/assets/flan-product.png";
 import madeInFrance from "@/assets/made-in-france.png";
 import { products } from "@/data/products";
+import SEO from "@/components/SEO";
+import { productSchema, breadcrumbSchema } from "@/lib/structuredData";
 
 const Produits = () => {
   const product = products[0]; // Premier produit
 
+  const multipleSchemas = {
+    "@context": "https://schema.org",
+    "@graph": [productSchema, breadcrumbSchema([
+      { name: "Accueil", url: "/" },
+      { name: "Produits", url: "/produits" }
+    ])]
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Flan Pâtissier Protéiné - 20g de Protéines | Le Sportif Gourmand"
+        description="Notre flan pâtissier protéiné : 20g de protéines, 250 kcal, 0 additifs controversés. Fabriqué en France avec des ingrédients naturels. Nutrition et gourmandise réunies."
+        keywords="flan protéiné, dessert protéiné, pâtisserie sportive, flan 20g protéines, collation musculation, snack protéiné"
+        canonical="/produits"
+        structuredData={multipleSchemas}
+        ogType="product"
+      />
       <Header />
       <main className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

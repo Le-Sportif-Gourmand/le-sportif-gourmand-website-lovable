@@ -13,6 +13,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
+import SEO from "@/components/SEO";
+import { breadcrumbSchema } from "@/lib/structuredData";
 
 const contactFormSchema = z.object({
   firstName: z.string().min(2, "Le prénom doit contenir au moins 2 caractères").max(50, "Le prénom est trop long"),
@@ -28,6 +30,11 @@ type ContactFormValues = z.infer<typeof contactFormSchema>;
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const breadcrumb = breadcrumbSchema([
+    { name: "Accueil", url: "/" },
+    { name: "Contact", url: "/contact" }
+  ]);
   
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
@@ -101,6 +108,13 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Nous Contacter - Demandes & Partenariats | Le Sportif Gourmand"
+        description="Contactez-nous pour vos questions, demandes de partenariat ou suggestions. Téléphone : +33 6 28 07 99 00, Email : contact@sportifgourmand.com. Réponse sous 24-48h."
+        keywords="contact Le Sportif Gourmand, demande partenariat, service client, questions produits, devenir revendeur"
+        canonical="/contact"
+        structuredData={breadcrumb}
+      />
       <Header />
       <main className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

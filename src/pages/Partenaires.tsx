@@ -6,9 +6,16 @@ import partnerCtcpa from "@/assets/partner-ctcpa.png";
 import partnerBpi from "@/assets/partner-bpi.png";
 import partnerPepite from "@/assets/partner-pepite.png";
 import { Button } from "@/components/ui/button";
+import SEO from "@/components/SEO";
+import { breadcrumbSchema } from "@/lib/structuredData";
 
 const Partenaires = () => {
   const navigate = useNavigate();
+
+  const breadcrumb = breadcrumbSchema([
+    { name: "Accueil", url: "/" },
+    { name: "Partenaires", url: "/partenaires" }
+  ]);
 
   const partners = [
     {
@@ -36,6 +43,13 @@ const Partenaires = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Nos Partenaires - CTCPA, BPI France, Pépite | Le Sportif Gourmand"
+        description="Le Sportif Gourmand s'entoure d'experts reconnus : CTCPA pour le développement, BPI France pour le financement, Pépite pour l'accompagnement entrepreneurial."
+        keywords="partenaires Le Sportif Gourmand, CTCPA, BPI France, Pépite France, innovation alimentaire, startup food"
+        canonical="/partenaires"
+        structuredData={breadcrumb}
+      />
       <Header />
       <main className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

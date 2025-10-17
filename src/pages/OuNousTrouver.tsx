@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Phone, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import SEO from "@/components/SEO";
+import { breadcrumbSchema } from "@/lib/structuredData";
 
 // Fix for default marker icon in react-leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -37,6 +39,11 @@ const OuNousTrouver = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  const breadcrumb = breadcrumbSchema([
+    { name: "Accueil", url: "/" },
+    { name: "Où nous trouver", url: "/ou-nous-trouver" }
+  ]);
 
   useEffect(() => {
     const fetchSalesPoints = async () => {
@@ -77,6 +84,13 @@ const OuNousTrouver = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Où Nous Trouver - Points de Vente & Carte | Le Sportif Gourmand"
+        description="Trouvez nos flans protéinés près de chez vous. Disponibles dans les salles de sport et magasins bio en France. Carte interactive des points de vente."
+        keywords="acheter flan protéiné, points de vente, où trouver Le Sportif Gourmand, salle de sport, magasin bio, Paris"
+        canonical="/ou-nous-trouver"
+        structuredData={breadcrumb}
+      />
       <Header />
       <main className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
