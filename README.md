@@ -2,7 +2,7 @@
 
 Un site web moderne dédié à la nutrition sportive et à l'alimentation saine, construit avec React, TypeScript et Tailwind CSS.
 
-🌐 **Site web**: [https://www.sportifgourmand.com](https://www.sportifgourmand.com)
+🌐 **Site web**: [https://www.lesportifgourmand.com](https://www.lesportifgourmand.com)
 
 ## Prérequis
 
@@ -77,7 +77,7 @@ Ce projet utilise ESLint et TypeScript pour assurer la qualité du code. Veuille
 
 **Le site est automatiquement déployé sur Netlify à chaque push sur la branche principale.**
 
-Les builds de production sont générés automatiquement et déployés sur https://www.sportifgourmand.com.
+Les builds de production sont générés automatiquement et déployés sur https://www.lesportifgourmand.com.
 
 ### License
 
