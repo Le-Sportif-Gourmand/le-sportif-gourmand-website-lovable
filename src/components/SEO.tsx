@@ -8,6 +8,7 @@ interface SEOProps {
   ogImage?: string;
   ogType?: string;
   structuredData?: object;
+  noindex?: boolean;
 }
 
 const SEO = ({
@@ -18,6 +19,7 @@ const SEO = ({
   ogImage = "https://www.lesportifgourmand.com/og-image.jpg",
   ogType = "website",
   structuredData,
+  noindex = false,
 }: SEOProps) => {
   const siteUrl = "https://www.lesportifgourmand.com";
   const fullCanonical = canonical ? `${siteUrl}${canonical}` : siteUrl;
@@ -49,6 +51,13 @@ const SEO = ({
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
+      )}
+
+      {/* Robots Meta Tag */}
+      {noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta name="robots" content="index, follow" />
       )}
     </Helmet>
   );
