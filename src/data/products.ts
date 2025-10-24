@@ -42,8 +42,8 @@ export const products: Product[] = [
     image: "/src/assets/flan-product.png",
     bannerImage: "/src/assets/banniere-flan.png",
     nutritionalInfo: {
-      calories: 250,
-      proteins: 20,
+      calories: 274,
+      proteins: 25,
       noControversialAdditives: true,
       madeInFrance: true,
     },
