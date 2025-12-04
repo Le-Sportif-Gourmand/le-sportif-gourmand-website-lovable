@@ -85,14 +85,6 @@ const HeroSection = () => {
                 alt={product.name} 
                 className="w-full max-w-2xl h-auto object-contain drop-shadow-2xl"
               />
-              
-              {/* Effet de glow doré */}
-              <div 
-                className="absolute inset-0 opacity-20 blur-xl"
-                style={{
-                  background: "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)"
-                }}
-              />
             </div>
           </div>
         </div>
