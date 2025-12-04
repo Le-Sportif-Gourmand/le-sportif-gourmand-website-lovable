@@ -83,7 +83,7 @@ const HeroSection = () => {
               <img 
                 src={banniereFlan} 
                 alt={product.name} 
-                className="w-full max-w-2xl h-auto object-contain drop-shadow-2xl"
+                className="w-full max-w-lg h-auto object-contain drop-shadow-2xl rounded-3xl"
               />
             </div>
           </div>
