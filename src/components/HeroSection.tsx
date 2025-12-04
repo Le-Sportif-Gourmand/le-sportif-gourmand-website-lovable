@@ -78,7 +78,7 @@ const HeroSection = () => {
           </div>
 
           {/* Image bannière */}
-          <div className="relative flex justify-center lg:justify-end">
+          <div className="relative flex justify-center lg:justify-start">
             <div className="relative animate-float">
               <img 
                 src={banniereFlan} 
