@@ -39,8 +39,8 @@ export const products: Product[] = [
     name: "Flan Pâtissier Protéiné",
     tagline: "Le Flan Pâtissier Protéiné",
     description: "La première pâtisserie qui allie plaisir gourmand et performance sportive.",
-    image: "/src/assets/flan-product.png",
-    bannerImage: "/src/assets/banniere-flan.png",
+    image: "/src/assets/photo-produit-flan.png",
+    bannerImage: "/src/assets/photo-flan-vitrine-du-site.png",
     nutritionalInfo: {
       calories: 250,
       proteins: 20,

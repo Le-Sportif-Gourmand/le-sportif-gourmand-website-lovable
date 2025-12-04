@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import flanProduct from "@/assets/flan-product.png";
+import flanProduct from "@/assets/photo-produit-flan.png";
 import madeInFrance from "@/assets/made-in-france.png";
 import { products } from "@/data/products";
 import SEO from "@/components/SEO";

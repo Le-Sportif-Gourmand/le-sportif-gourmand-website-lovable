@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import banniereFlan from "@/assets/flan-product.png";
+import banniereFlan from "@/assets/Photo-flan-vitrine-du-site.png";
 import { getFeaturedProduct } from "@/data/products";
 
 const HeroSection = () => {
