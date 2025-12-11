@@ -1,6 +1,7 @@
 import partnerCtcpa from "@/assets/partner-ctcpa.png";
 import partnerBpi from "@/assets/partner-bpi.png";
 import partnerPepite from "@/assets/partner-pepite.png";
+import partnerFp from "@/assets/partner-fp.webp";
 import madeInFrance from "@/assets/made-in-france.png";
 
 const PartnerCarousel = () => {
@@ -8,14 +9,17 @@ const PartnerCarousel = () => {
     { name: "CTCPA", logo: partnerCtcpa, url: "https://www.ctcpa.org/" },
     { name: "BPI France", logo: partnerBpi, url: "https://www.bpifrance.fr/" },
     { name: "Pépite France", logo: partnerPepite, url: "https://www.pepite-france.fr/" },
+    { name: "France Protéine", logo: partnerFp, url: "#" },
     // Duplicate for seamless scrolling
     { name: "CTCPA", logo: partnerCtcpa, url: "https://www.ctcpa.org/" },
     { name: "BPI France", logo: partnerBpi, url: "https://www.bpifrance.fr/" },
     { name: "Pépite France", logo: partnerPepite, url: "https://www.pepite-france.fr/" },
+    { name: "France Protéine", logo: partnerFp, url: "#" },
     // Duplicate for seamless scrolling
     { name: "CTCPA", logo: partnerCtcpa, url: "https://www.ctcpa.org/" },
     { name: "BPI France", logo: partnerBpi, url: "https://www.bpifrance.fr/" },
     { name: "Pépite France", logo: partnerPepite, url: "https://www.pepite-france.fr/" },
+    { name: "France Protéine", logo: partnerFp, url: "#" },
   ];
 
   return (
