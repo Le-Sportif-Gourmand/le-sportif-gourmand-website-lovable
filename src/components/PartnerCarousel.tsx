@@ -9,17 +9,17 @@ const PartnerCarousel = () => {
     { name: "CTCPA", logo: partnerCtcpa, url: "https://www.ctcpa.org/" },
     { name: "BPI France", logo: partnerBpi, url: "https://www.bpifrance.fr/" },
     { name: "Pépite France", logo: partnerPepite, url: "https://www.pepite-france.fr/" },
-    { name: "France Protéine", logo: partnerFp, url: "#" },
+    { name: "Fitness Park", logo: partnerFp, url: "https://www.fitnesspark.fr/" },
     // Duplicate for seamless scrolling
     { name: "CTCPA", logo: partnerCtcpa, url: "https://www.ctcpa.org/" },
     { name: "BPI France", logo: partnerBpi, url: "https://www.bpifrance.fr/" },
     { name: "Pépite France", logo: partnerPepite, url: "https://www.pepite-france.fr/" },
-    { name: "France Protéine", logo: partnerFp, url: "#" },
+    { name: "Fitness Park", logo: partnerFp, url: "https://www.fitnesspark.fr/" },
     // Duplicate for seamless scrolling
     { name: "CTCPA", logo: partnerCtcpa, url: "https://www.ctcpa.org/" },
     { name: "BPI France", logo: partnerBpi, url: "https://www.bpifrance.fr/" },
     { name: "Pépite France", logo: partnerPepite, url: "https://www.pepite-france.fr/" },
-    { name: "France Protéine", logo: partnerFp, url: "#" },
+    { name: "Fitness Park", logo: partnerFp, url: "https://www.fitnesspark.fr/" },
   ];
 
   return (
